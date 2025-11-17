@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Provider;
+use App\Models\Booking;
+use App\Models\Rating;
+use App\Models\Comment;
 
 class Service extends Model
 {
@@ -28,5 +32,15 @@ class Service extends Model
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

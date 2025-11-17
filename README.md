@@ -56,6 +56,11 @@ php artisan test --testsuite=Feature
   - `GET /api/admin/pending-bookings`
   - `GET /api/admin/stats`
 
+## توثيق API
+
+- يمكنك عرض التوثيق التفاعلي الموجود في `docs/redoc.html` داخل المستودع.
+- تم إعداد Workflow لنشر محتوى `docs/` إلى فرع `gh-pages` (GitHub Pages) عند دفع التغييرات إلى `main`.
+
 ## ملاحظات
 - تم إضافة middleware اسمه `role` في `app/Http/Kernel.php` لفرض الأدوار.
 - تم إضافة سياسة `ServicePolicy` للتحقق من أن صاحب الخدمة أو المشرف فقط يمكنه التعديل/الحذف.
