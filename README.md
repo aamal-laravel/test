@@ -1,3 +1,67 @@
+# STA Back (API)
+
+مستودع API لتطبيق STA — يحتوي على نماذج، كنترولرز، مسارات، وميجريشنات للاستخدام مع Laravel.
+
+## تشغيل محلي سريع
+
+- تثبيت الاعتماديات:
+```powershell
+composer install
+```
+- إعداد قاعدة البيانات في `.env` ثم تشغيل الميجريشنات:
+```powershell
+php artisan migrate
+```
+- تشغيل السيرفر المحلي:
+```powershell
+php artisan serve
+```
+
+## تشغيل الاختبارات
+
+```powershell
+php artisan test --testsuite=Feature
+```
+
+## ملخّص الـ API endpoints (مهم)
+
+- تسجيل مستخدم (سائح/مزود حسب بيانات لاحقة): `POST /api/register`
+- تسجيل دخول: `POST /api/login`
+- تسجيل خروج: `POST /api/logout` (محمية بـ `auth:sanctum`)
+
+- مسارات السائح (محمية، تتطلب `role:tourist` أو أن يكون مستخدم مرتبط بـ Tourist):
+  - `GET /api/tourist/profile`
+  - `POST /api/tourist/preferences` (تحديث التفضيلات)
+  - `GET /api/tourist/bookings`
+  - `GET /api/tourist/notifications`
+  - `POST /api/tourist/book` (إنشاء حجز)
+
+- مسارات المزود (محمية، تتطلب `role:provider`):
+  - `GET /api/provider/profile`
+  - `POST /api/provider/profile` (تحديث)
+  - `GET /api/provider/services`
+  - `POST /api/provider/services` (إنشاء خدمة)
+  - `PUT /api/provider/services/{service}` (تحديث خدمة)
+  - `DELETE /api/provider/services/{service}` (حذف خدمة)
+  - `GET /api/provider/comments`
+  - `GET /api/provider/ratings`
+
+- إشعارات (admin أو مستخدم):
+  - `GET /api/notifications` (يعرض للجميع، للمشرف يعرض كل الإشعارات)
+  - `POST /api/notifications` (إنشاء، محمي بـ `role:admin`)
+
+- مشرف (admin):
+  - `GET /api/admin/preferences`
+  - `POST /api/admin/preferences/{preference}` (تحديث)
+  - `GET /api/admin/pending-bookings`
+  - `GET /api/admin/stats`
+
+## ملاحظات
+- تم إضافة middleware اسمه `role` في `app/Http/Kernel.php` لفرض الأدوار.
+- تم إضافة سياسة `ServicePolicy` للتحقق من أن صاحب الخدمة أو المشرف فقط يمكنه التعديل/الحذف.
+- تحتوي التغييرات على اختبارات مبدئية في `tests/Feature`.
+
+إذا رغبت، أستطيع إضافة ملف `OPENAPI` أو مجموعة Postman لمشاركة الوثائق بالتفصيل.
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
