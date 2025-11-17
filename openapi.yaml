@@ -27,6 +27,22 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+              example:
+                user:
+                  id: 1
+                  name: "Test User"
+                  email: "test@example.com"
+                  is_admin: false
+                token: "plain-text-token"
 
   /api/login:
     post:
@@ -45,6 +61,22 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+              example:
+                user:
+                  id: 1
+                  name: "Test User"
+                  email: "test@example.com"
+                  is_admin: false
+                token: "plain-text-token"
 
   /api/provider/services:
     post:
@@ -67,6 +99,16 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+              example:
+                id: 10
+                name: "City Tour"
+                identifier: "city-tour-10"
+                details: { "duration": "3h", "language": "ar" }
+                provider_id: 2
 
   /api/provider/services/{service}:
     put:
@@ -82,6 +124,16 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+              example:
+                id: 10
+                name: "City Tour - Updated"
+                identifier: "city-tour-10"
+                details: { "duration": "4h", "language": "ar,en" }
+                provider_id: 2
     delete:
       summary: Delete service
       security:
@@ -95,6 +147,15 @@ paths:
       responses:
         '200':
           description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: "Deleted"
 
 components:
   securitySchemes:
